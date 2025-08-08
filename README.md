@@ -11,10 +11,13 @@ that's basically it.
 
 ## Support 
 
-moocup is completely free to use. If you wish to support moocup, 
+moocup is completely free to use. and is maintained by myself.
+
+If you wish to provide moocup a better future, 
 you can do so at [Ko-fi](https://ko-fi.com/jaydipsanghani)
 
-Your support allows me to provide better features in moocup. if you'd like you can also help by contributing to moocup.
+You can also help me out by [contributing](#contributing).
+
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J41GWDRD)
 
