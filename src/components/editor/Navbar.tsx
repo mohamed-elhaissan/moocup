@@ -233,16 +233,16 @@ export function Navbar() {
             )}
           </Button>
         </div>
-         
-            <Button
-              variant="link"
-              className="w-full"
-            >
-               <a href='https://github.com/jellydeck/moocup' target="_blank" rel="noopener noreferrer" className='inline-flex gap-2 w-full grid-cols-2'>
-              <Github />
-               Hey, You can also help us out at here
+
+        <Button
+          variant="link"
+          className="w-full"
+        >
+          <a href='https://github.com/jellydeck/moocup' target="_blank" rel="noopener noreferrer" className='inline-flex gap-2 w-full grid-cols-2'>
+            <Github />
+            Hey, You can also help us out at here
           </a>
-            </Button>
+        </Button>
       </div>
 
       <Card className={`border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 ${!isMobile ? 'order-1' : 'order-2'} group`}>
@@ -390,16 +390,6 @@ export function Navbar() {
           )}
         </div>
         <div className="flex items-center gap-2">
-          <a href='https://github.com/jellydeck/moocup' target="_blank" rel="noopener noreferrer"
-          >
-            <Button
-              variant="outline"
-              className="gap-2"
-            >
-              <Github />
-              Moocup is now Open source, Send a Star!
-            </Button>
-          </a>
           {isMobile ? (
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
@@ -432,6 +422,16 @@ export function Navbar() {
             </Dialog>
           ) : (
             <div className="relative">
+              <a href='https://github.com/jellydeck/moocup' target="_blank" rel="noopener noreferrer"
+              >
+                <Button
+                  variant="outline"
+                  className="gap-2 mr-2"
+                >
+                  <Github />
+                  Moocup is now Open source, Send a Star!
+                </Button>
+              </a>
               <Button
                 variant="outline"
                 onClick={() => setShowExportOptions(!showExportOptions)}
