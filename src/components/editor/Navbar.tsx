@@ -15,7 +15,8 @@ import {
   Heart,
   Twitter,
   X,
-  CheckCircle
+  CheckCircle,
+  Github
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useMockupStore } from '@/contexts/MockupContext';
@@ -50,39 +51,39 @@ export function Navbar() {
 
       const imgElement = mockupElement.querySelector('img') as HTMLImageElement;
       if (!imgElement) throw new Error('Image element not found');
-      
-        // For fixed margin mode: capture the entire canvas (image + background margins)
-        const canvas = await html2canvas(mockupElement, {
-          scale: qualityMultiplier * 2,
-          useCORS: true,
-          allowTaint: true,
-          backgroundColor: null,
-          // Capture the entire mockup element without any cropping
-        });
 
-        const mimeType = `image/${format.toLowerCase()}`;
-        const imageQuality = format === 'JPEG' ? 1 : undefined;
+      // For fixed margin mode: capture the entire canvas (image + background margins)
+      const canvas = await html2canvas(mockupElement, {
+        scale: qualityMultiplier * 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: null,
+        // Capture the entire mockup element without any cropping
+      });
 
-        canvas.toBlob(
-          (blob) => {
-            if (blob) {
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement('a');
-              a.href = url;
-              a.download = `mockup-${Date.now()}.${format.toLowerCase()}`;
-              document.body.appendChild(a);
-              a.click();
-              document.body.removeChild(a);
-              URL.revokeObjectURL(url);
-            } else {
-              throw new Error('Failed to create blob');
-            }
-          },
-          mimeType,
-          imageQuality
-        );
-      
-      
+      const mimeType = `image/${format.toLowerCase()}`;
+      const imageQuality = format === 'JPEG' ? 1 : undefined;
+
+      canvas.toBlob(
+        (blob) => {
+          if (blob) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `mockup-${Date.now()}.${format.toLowerCase()}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          } else {
+            throw new Error('Failed to create blob');
+          }
+        },
+        mimeType,
+        imageQuality
+      );
+
+
     } catch (error) {
       console.error('Export error:', error);
       throw error;
@@ -232,6 +233,16 @@ export function Navbar() {
             )}
           </Button>
         </div>
+         
+            <Button
+              variant="link"
+              className="w-full"
+            >
+               <a href='https://github.com/jellydeck/moocup' target="_blank" rel="noopener noreferrer" className='inline-flex gap-2 w-full grid-cols-2'>
+              <Github />
+               Hey, You can also help us out at here
+          </a>
+            </Button>
       </div>
 
       <Card className={`border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 ${!isMobile ? 'order-1' : 'order-2'} group`}>
@@ -379,6 +390,16 @@ export function Navbar() {
           )}
         </div>
         <div className="flex items-center gap-2">
+          <a href='https://github.com/jellydeck/moocup' target="_blank" rel="noopener noreferrer"
+          >
+            <Button
+              variant="outline"
+              className="gap-2"
+            >
+              <Github />
+              Moocup is now Open source, Send a Star!
+            </Button>
+          </a>
           {isMobile ? (
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
