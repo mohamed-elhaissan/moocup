@@ -1,10 +1,12 @@
-[![Moocup banner](https://moocup.jaydip.me/og.webp)](https://moocup.jaydip.me/)
+[![Moocup banner](/public/banner.png)](https://moocup.jaydip.me/)
 
-# Moocup
+# What?
 
-A visual editor to create stunning screenshots. 
+A visual editor to create stunning screenshots. you can simply drop your screenshot, a base style will be applied.
 
-drop your screenshot, we'll do the rest.
+style it however you wish, and export.
+
+that's basically it.
 
 
 ## Support 
