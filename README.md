@@ -32,6 +32,27 @@ Raise a Issue with title "Feature Request : " and what you wish to see to be add
 
 currently, I'm planning to only add features that gives more benefit to moocup as a tool. so, priority will change based on value.
 
+
+## Self-hosting
+You can easily self-host moocup on platforms like Vercel, Railway, or Netlify—just provide the repository and follow the standard steps to deploy a web app.
+
+One-click Railway Deploy:
+[**Deploy on Railway**](https://railway.com/deploy/moocup) - for the latest version in a single click.
+
+Manual Hosting:
+
+- Clone the repository.
+- Build the project just like any other Vite app:
+  
+```
+    npm install
+    npm run build
+```
+
+- Upload the dist folder to your hosting provider (or attach it to a public URL) to make it accessible online.
+
+That’s it—you’ve got your own moocup instance running!
+
 ## Contributing
 
 Contributions and Fixes are more than Welcome. 
