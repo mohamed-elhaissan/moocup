@@ -451,7 +451,7 @@ export function Navbar() {
                       </g>
                     </g>
                   </svg>
-Send us a star!
+                  Send us a star!
                 </Button>
               </a>
               <Button
