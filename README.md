@@ -37,7 +37,11 @@ currently, I'm planning to only add features that gives more benefit to moocup a
 You can easily self-host moocup on platforms like Vercel, Railway, or Netlify—just provide the repository and follow the standard steps to deploy a web app.
 
 One-click Railway Deploy:
-[**Deploy on Railway**](https://railway.com/deploy/moocup) - for the latest version in a single click.
+
+
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.com/deploy/moocup?referralCode=bmgbXt)
+ - for the latest version in a single click.
 
 Manual Hosting:
 
