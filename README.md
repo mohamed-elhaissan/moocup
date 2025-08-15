@@ -36,14 +36,22 @@ currently, I'm planning to only add features that gives more benefit to moocup a
 ## Self-hosting
 You can easily self-host moocup on platforms like Vercel, Railway, or Netlify—just provide the repository and follow the standard steps to deploy a web app.
 
-One-click Railway Deploy:
-
-
+### One-click Railway Deploy:
 
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.com/deploy/moocup?referralCode=bmgbXt)
+ 
  - for the latest version in a single click.
 
-Manual Hosting:
+### Docker Image
+
+You can also run moocup using Docker from Docker Hub:
+```
+docker pull jellydeck/moocup:latest
+docker run -p 8080:80 jellydeck/moocup:latest
+```
+- app will be available at http://localhost:8080
+
+### Manual Hosting:
 
 - Clone the repository.
 - Build the project just like any other Vite app:
@@ -55,7 +63,7 @@ Manual Hosting:
 
 - Upload the dist folder to your hosting provider (or attach it to a public URL) to make it accessible online.
 
-That’s it—you’ve got your own moocup instance running!
+That’s it - you’ve got your own moocup instance running!
 
 ## Contributing
 
