@@ -142,18 +142,15 @@ export function Navbar() {
         : 'grid grid-cols-2 gap-6'
       }
       `}>
-      <div className={`space-y-6 ${!isMobile ? 'order-2' : 'order-1'}`}>
+      <div className={`${!isMobile ? 'order-2' : 'order-1'}`}>
         <div>
-          <h3 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
+          <h3 className="text-xl font-semibold text-foreground mb-6 flex items-center gap-2">
             <Download className="w-5 h-5 text-primary" />
             Export Settings
           </h3>
-          <div className="space-y-4">
+          <div className="space-y-2">
             <div className="flex items-center justify-between">
               <label className="text-sm font-medium">Format</label>
-              <Badge variant="outline" className="font-mono">
-                {exportFormat}
-              </Badge>
             </div>
             <ToggleGroup
               type="single"
@@ -165,41 +162,50 @@ export function Navbar() {
                 <ToggleGroupItem
                   key={format}
                   value={format}
-                  className={`flex-1 text-sm rounded-full cursor-pointer hover:bg-primary/20 hover:text-primary data-[state=on]:bg-primary data-[state=on]:text-black`}
+                  className={`flex-1 text-sm rounded-full cursor-pointer hover:bg-secondary hover:text-secondary-foreground data-[state=on]:bg-primary/20 data-[state=on]:text-primary`}
                 >
                   {format}
                 </ToggleGroupItem>
               ))}
             </ToggleGroup>
           </div>
-          <div className="space-y-2 mt-4">
+
+          <div className="space-y-2 mt-6">
             <div className="flex items-center justify-between">
               <label className="text-sm font-medium">Quality</label>
-              <Badge variant="outline" className="font-mono">
-                {getQualityLabel(quality[0])}
-              </Badge>
             </div>
-            <div className="space-y-3">
-              <Slider
-                value={quality}
-                onValueChange={setQuality}
-                min={1}
-                max={3}
-                step={1}
-                className="w-full"
-              />
-              <div className="flex justify-between text-xs text-muted-foreground">
-                <span>Standard</span>
-                <span>High</span>
-                <span>Ultra</span>
-              </div>
-            </div>
+            <ToggleGroup
+              type="single"
+              value={String(quality[0])}
+              onValueChange={(value) => value && setQuality([parseInt(value)])}
+              className="flex gap-1 bg-sidebar/80 rounded-full ring-2 ring-secondary p-1"
+            >
+              <ToggleGroupItem
+                value="1"
+                className="flex-1 text-sm rounded-full cursor-pointer hover:bg-secondary hover:text-secondary-foreground data-[state=on]:bg-primary/20 data-[state=on]:text-primary"
+              >
+                Standard
+              </ToggleGroupItem>
+              <ToggleGroupItem
+                value="2"
+                className="flex-1 text-sm rounded-full cursor-pointer hover:bg-secondary hover:text-secondary-foreground data-[state=on]:bg-primary/20 data-[state=on]:text-primary"
+              >
+                High
+              </ToggleGroupItem>
+              <ToggleGroupItem
+                value="3"
+                className="flex-1 text-sm rounded-full cursor-pointer hover:bg-secondary hover:text-secondary-foreground data-[state=on]:bg-primary/20 data-[state=on]:text-primary"
+              >
+                Ultra
+              </ToggleGroupItem>
+            </ToggleGroup>
           </div>
         </div>
-        <div className="space-y-3 grid grid-cols-2 gap-3">
+        <div className="space-y-3 grid grid-cols-2 gap-3 mt-12">
           <Button
             onClick={handleSingleExport}
             className="w-full h-12 font-medium shadow-md"
+            variant='secondary'
             disabled={isExporting || !uploadedImage}
           >
             {isExporting ? (
@@ -245,7 +251,7 @@ export function Navbar() {
         </Button>
       </div>
 
-      <Card className={`border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 ${!isMobile ? 'order-1' : 'order-2'} group`}>
+      <Card className={`rounded-xl border-2 border-dashed border-primary/20 ${!isMobile ? 'order-1' : 'order-2'} group`}>
         <CardHeader className="pb-4">
           <div className="flex items-center gap-2">
             <Heart className="w-5 h-5 text-primary fill-primary/20 group-hover:fill-primary/50 transition-colors group-hover:animate-pulse group-hover:scale-110" />
@@ -287,7 +293,7 @@ export function Navbar() {
                 className="flex items-center"
               >
                 <Coffee className="w-5 h-5" />
-                <span className="font-medium">Buy me a coffee</span>
+                <span className="font-medium">Buy a coffee</span>
               </a>
             </Button>
             <Dialog>
@@ -296,7 +302,7 @@ export function Navbar() {
                   variant="outline"
                   className="w-full h-12 border-primary/30 hover:bg-primary/5 hover:border-primary/50 inline-flex items-center"
                 >
-                  <QrCode className="w-5 h-5 -ml-10" />
+                  <QrCode className="w-5 h-5" />
                   <span className="font-medium">UPI (India)</span>
                 </Button>
               </DialogTrigger>
@@ -315,14 +321,14 @@ export function Navbar() {
               </DialogContent>
             </Dialog>
           </div>
-          <div className="space-y-2 pt-2 border-t border-primary/10">
-            <h4 className="text-sm font-medium text-muted-foreground">Say hi!
+          <div className="space-y-2">
+            <h4 className="text-sm font-medium text-muted-foreground">Say Hi!
               <span className='ml-2 text-sm text-muted-foreground leading-relaxed'>
                 I'm always up for quick chat :)
               </span>
             </h4>
             <div className="flex gap-2">
-              <Button variant="outline" size="sm" asChild className="flex-1 border-primary/30 hover:border-primary/50">
+              <Button variant="secondary" size="sm" asChild className="flex-1 border-primary/30 hover:border-primary/50">
                 <a
                   href="https://bsky.app/profile/jellydeck.bsky.social"
                   target="_blank"
@@ -339,7 +345,7 @@ export function Navbar() {
                   <span>Bluesky</span>
                 </a>
               </Button>
-              <Button variant="outline" size="sm" asChild className="flex-1 border-primary/30 hover:border-primary/50">
+              <Button variant="secondary" size="sm" asChild className="flex-1 border-primary/30 hover:border-primary/50">
                 <a
                   href="https://twitter.com/JellyDeck"
                   target="_blank"
@@ -465,7 +471,7 @@ export function Navbar() {
                 <ChevronDown className={`w-4 h-4 transition-transform ${showExportOptions ? 'rotate-180' : ''}`} />
               </Button>
               {showExportOptions && (
-                <Card className="absolute right-0 top-full mt-2 w-[900px] shadow-lg z-50 bg-background border">
+                <Card className="absolute right-0 top-full mt-2 w-[900px] shadow-lg z-50 bg-background border rounded-2xl">
                   <CardContent className="p-6">
                     <ExportOptionsContent />
                   </CardContent>
