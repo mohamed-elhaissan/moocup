@@ -98,7 +98,7 @@ export const Backgrounds: React.FC = () => {
       name: 'Cosmic Night',
       colors: ['#667eea', '#764ba2'],
       direction: 'to-br',
-      image: '/assets/cosmic_night.png'
+      image: '/assets/cosmic_night.webp'
     },
     {
       name: 'Mint Breeze',
