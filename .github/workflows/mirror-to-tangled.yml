@@ -9,15 +9,18 @@ jobs:
   mirror:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Start SSH agent and add key
+        uses: webfactory/ssh-agent@v0.9.1
+        with:
+          ssh-private-key: ${{ secrets.TANGLED_SSH_KEY }}
+
+      - name: Trust Tangled host key
+        run: ssh-keyscan tangled.sh >> ~/.ssh/known_hosts
 
       - name: Push to Tangled
-        env:
-          SSH_KEY: ${{ secrets.TANGLED_SSH_KEY }}
         run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_KEY" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
           git remote add tangled git@tangled.sh:jaydip.me/moocup
           git push tangled main
