@@ -1,0 +1,23 @@
+name: Mirror to Tangled
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Push to Tangled
+        env:
+          SSH_KEY: ${{ secrets.TANGLED_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          git remote add tangled git@tangled.sh:jaydip.me/moocup
+          git push tangled main
