@@ -17,7 +17,7 @@ jobs:
           SSH_KEY: ${{ secrets.TANGLED_SSH_KEY }}
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
           git remote add tangled git@tangled.sh:jaydip.me/moocup
           git push tangled main
