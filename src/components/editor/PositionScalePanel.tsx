@@ -64,6 +64,11 @@ export const PositionScalePanel: React.FC<PositionScalePanelProps> = ({ onClose 
     }
   }, [isDragging]);
 
+  const handleFixedMarginToggle = (checked) => {
+    setFixedMargin(checked)
+    handleMarginPresetChange('medium')
+  }
+
   const handleBallClick = (e: React.MouseEvent, ballIndex: number) => {
     e.preventDefault();
     if (!gridRef.current) return;
@@ -202,8 +207,8 @@ export const PositionScalePanel: React.FC<PositionScalePanelProps> = ({ onClose 
                   <span className="text-white text-sm">Fixed Margin</span>
                   <Switch
                     checked={fixedMargin}
-                    onCheckedChange={(checked) => setFixedMargin(checked)}
-                    className="data-[state=checked]:bg-primary"
+                    onCheckedChange={handleFixedMarginToggle}
+                  className="data-[state=checked]:bg-primary"
                   />
                 </div>
 
