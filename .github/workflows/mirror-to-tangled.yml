@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0  # full commit history
+
 
       - name: Start SSH agent and add key
         uses: webfactory/ssh-agent@v0.9.1
@@ -23,4 +26,4 @@ jobs:
       - name: Push to Tangled
         run: |
           git remote add tangled git@tangled.sh:jaydip.me/moocup
-          git push tangled main:from-github
+          git push -f tangled main:from-github
