@@ -1,23 +1,19 @@
-import React, { useState, useRef } from 'react';
-import { Button } from '@/components/ui/button';
+import React, { useState, useRef } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { Separator } from '@/components/ui/separator';
-import {
-  Move,
-  Undo,
-  SquareDashed,
-  Rotate3D
-} from 'lucide-react';
-import { RotationSkewPanel } from './RotationSkewPanel';
-import { PositionScalePanel } from './PositionScalePanel';
-import { ImageBorderPanel } from './ImageBorderPanel';
-import { useMobile } from '@/hooks/use-mobile';
-import { Sheet, SheetContent } from '@/components/ui/sheet';
-import { useMockupStore } from '@/contexts/MockupContext';
+} from "@/components/ui/tooltip";
+import { Separator } from "@/components/ui/separator";
+import { Move, Undo, SquareDashed, Rotate3D, Palette } from "lucide-react";
+import { RotationSkewPanel } from "./RotationSkewPanel";
+import { PositionScalePanel } from "./PositionScalePanel";
+import { ImageBorderPanel } from "./ImageBorderPanel";
+import { useMobile } from "@/hooks/use-mobile";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { useMockupStore } from "@/contexts/MockupContext";
+import { Backgrounds } from "./Backgrounds";
 
 export const FloatingBar: React.FC = () => {
   const {
@@ -27,7 +23,7 @@ export const FloatingBar: React.FC = () => {
     set3DRotation,
     setImageBorder,
     setMargin,
-    setFixedMargin
+    setFixedMargin,
   } = useMockupStore();
 
   const [activePanel, setActivePanel] = useState<string | null>(null);
@@ -47,19 +43,21 @@ export const FloatingBar: React.FC = () => {
     setUploadedImage(null);
     updateDevicePosition({ x: 0, y: 0, scale: 1, rotation: 0 });
     set3DRotation({ rotateX: 0, rotateY: 0, rotateZ: 0, skew: 0 });
-    setImageBorder({ width: 8, color: '#FF6B6B', radius: 22, enabled: false });
+    setImageBorder({ width: 8, color: "#FF6B6B", radius: 22, enabled: false });
     setActivePanel(null);
   };
 
   const togglePanel = (panelName: string) => {
-    setActivePanel(prev => prev === panelName ? null : panelName);
+    setActivePanel((prev) => (prev === panelName ? null : panelName));
   };
 
   // Separate the position calculation logic to only run when necessary
   React.useEffect(() => {
     if (!isMobile && hasImageRef.current) {
       const updatePosition = () => {
-        const canvasElement = document.querySelector('[data-mockup-canvas]') as HTMLElement;
+        const canvasElement = document.querySelector(
+          "[data-mockup-canvas]"
+        ) as HTMLElement;
         if (canvasElement) {
           const rect = canvasElement.getBoundingClientRect();
           const navHeight = 60;
@@ -79,38 +77,46 @@ export const FloatingBar: React.FC = () => {
 
           setNavPosition({
             x: centerX,
-            y: bottomY
+            y: bottomY,
           });
         }
       };
 
       updatePosition();
-      window.addEventListener('resize', updatePosition);
-      window.addEventListener('scroll', updatePosition);
+      window.addEventListener("resize", updatePosition);
+      window.addEventListener("scroll", updatePosition);
 
       return () => {
-        window.removeEventListener('resize', updatePosition);
-        window.removeEventListener('scroll', updatePosition);
+        window.removeEventListener("resize", updatePosition);
+        window.removeEventListener("scroll", updatePosition);
       };
     }
   }, [isMobile, hasImageRef.current]); // Remove uploadedImage dependency
 
   // Render panel components only once and keep them stable
-  const panelComponents = React.useMemo(() => ({
-    rotation: <RotationSkewPanel onClose={() => setActivePanel(null)} />,
-    position: <PositionScalePanel onClose={() => setActivePanel(null)} />,
-    border: <ImageBorderPanel onClose={() => setActivePanel(null)} />
-  }), []); // Empty dependency array - components are stable
+  const panelComponents = React.useMemo(
+    () => ({
+      rotation: <RotationSkewPanel onClose={() => setActivePanel(null)} />,
+      position: <PositionScalePanel onClose={() => setActivePanel(null)} />,
+      border: <ImageBorderPanel onClose={() => setActivePanel(null)} />,
+      theme: <Backgrounds />,
+    }),
+    []
+  ); // Empty dependency array - components are stable
 
   const renderPanel = () => {
     if (!activePanel) return null;
 
-    const PanelContent = panelComponents[activePanel as keyof typeof panelComponents];
+    const PanelContent =
+      panelComponents[activePanel as keyof typeof panelComponents];
 
     if (isMobile) {
       return (
         <Sheet open={!!activePanel} onOpenChange={() => setActivePanel(null)}>
-          <SheetContent side="bottom" className="bg-sidebar border-t border-sidebar-border">
+          <SheetContent
+            side="bottom"
+            className="bg-sidebar border-t border-sidebar-border"
+          >
             {PanelContent}
           </SheetContent>
         </Sheet>
@@ -134,66 +140,100 @@ export const FloatingBar: React.FC = () => {
             Reset
           </Button>
         </TooltipTrigger>
-        <TooltipContent><p>Reset Transformations</p></TooltipContent>
+        <TooltipContent>
+          <p>Reset Transformations</p>
+        </TooltipContent>
       </Tooltip>
 
-      {!isMobile && <Separator orientation="vertical" className="h-6 bg-primary/40 mx-1" />}
+      {!isMobile && (
+        <Separator orientation="vertical" className="h-6 bg-primary/40 mx-1" />
+      )}
 
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
-            onClick={() => togglePanel('rotation')}
-            variant={activePanel === 'rotation' ? 'default' : 'ghost'}
+            onClick={() => togglePanel("rotation")}
+            variant={activePanel === "rotation" ? "default" : "ghost"}
             className={`rounded-full 
-              ${activePanel === 'rotation'
-                ? 'bg-primary hover:bg-primary/80 text-black'
-                : 'text-white hover:text-primary hover:bg-primary/20'
+              ${
+                activePanel === "rotation"
+                  ? "bg-primary hover:bg-primary/80 text-black"
+                  : "text-white hover:text-primary hover:bg-primary/20"
               }`}
             disabled={!hasImage}
           >
             <Rotate3D className="w-10 h-10" />
-            {!isMobile && 'Rotate & Transform'}
+            {!isMobile && "Rotate & Transform"}
           </Button>
         </TooltipTrigger>
-        <TooltipContent><p>3D Rotation</p></TooltipContent>
+        <TooltipContent>
+          <p>3D Rotation</p>
+        </TooltipContent>
       </Tooltip>
 
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
-            onClick={() => togglePanel('position')}
-            variant={activePanel === 'position' ? 'default' : 'ghost'}
+            onClick={() => togglePanel("position")}
+            variant={activePanel === "position" ? "default" : "ghost"}
             className={`rounded-full py-3
-            ${activePanel === 'position'
-                ? 'bg-primary hover:bg-primary/80 text-black'
-                : 'text-white hover:text-primary hover:bg-primary/20'
-              }`}
+            ${
+              activePanel === "position"
+                ? "bg-primary hover:bg-primary/80 text-black"
+                : "text-white hover:text-primary hover:bg-primary/20"
+            }`}
             disabled={!hasImage}
           >
             <Move className="w-10 h-10" />
-            {!isMobile && 'Position & Scale'}
+            {!isMobile && "Position & Scale"}
           </Button>
         </TooltipTrigger>
-        <TooltipContent><p>Position & Scale</p></TooltipContent>
+        <TooltipContent>
+          <p>Position & Scale</p>
+        </TooltipContent>
       </Tooltip>
 
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
-            onClick={() => togglePanel('border')}
-            variant={activePanel === 'border' ? 'default' : 'ghost'}
+            onClick={() => togglePanel("border")}
+            variant={activePanel === "border" ? "default" : "ghost"}
             className={`rounded-full 
-            ${activePanel === 'border'
-                ? 'bg-primary hover:bg-primary/80 text-black'
-                : 'text-white hover:text-primary hover:bg-primary/20'
-              }`}
+            ${
+              activePanel === "border"
+                ? "bg-primary hover:bg-primary/80 text-black"
+                : "text-white hover:text-primary hover:bg-primary/20"
+            }`}
             disabled={!hasImage}
           >
             <SquareDashed className="w-10 h-10" />
-            {!isMobile && 'Border'}
+            {!isMobile && "Border"}
           </Button>
         </TooltipTrigger>
-        <TooltipContent><p>Image Border</p></TooltipContent>
+        <TooltipContent>
+          <p>Image Border</p>
+        </TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            onClick={() => togglePanel("theme")}
+            variant={activePanel === "theme" ? "default" : "ghost"}
+            className={`rounded-full 
+            ${
+              activePanel === "theme"
+                ? "bg-primary hover:bg-primary/80 text-black"
+                : "text-white hover:text-primary hover:bg-primary/20"
+            }`}
+            disabled={!hasImage}
+          >
+            <Palette className="w-10 h-10" />
+            {!isMobile && "Theme"}
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Theme</p>
+        </TooltipContent>
       </Tooltip>
     </>
   );
@@ -216,7 +256,7 @@ export const FloatingBar: React.FC = () => {
         className="fixed z-30 -translate-x-1/2"
         style={{
           left: `${navPosition.x}px`,
-          top: `${navPosition.y}px`
+          top: `${navPosition.y}px`,
         }}
       >
         <div className="flex items-center gap-1 bg-sidebar/80 backdrop-blur-lg border-2 border-primary/60 rounded-full shadow-2xl p-1.5">

@@ -160,7 +160,7 @@ export const ImageBorderPanel: React.FC<ImageBorderPanelProps> = ({ onClose }) =
   return (
     <div
       ref={windowRef}
-      className="md:fixed z-40 select-none"
+      className="md:fixed z-40 select-none "
       style={{
         left: `${windowPosition.x}px`,
         top: `${windowPosition.y}px`
@@ -168,7 +168,7 @@ export const ImageBorderPanel: React.FC<ImageBorderPanelProps> = ({ onClose }) =
     >
       <Card className="bg-sidebar max-md:border-none border-sidebar-border rounded-2xl overflow-hidden min-w-80">
         <div
-          className="flex items-center justify-between p-4 bg-sidebar md:cursor-move border-b border-sidebar-border"
+          className="flex items-center justify-between  p-4  md:cursor-move border-b border-sidebar-border"
           onMouseDown={handleWindowDragStart}
         >
           <div className="flex items-center gap-3">
@@ -256,7 +256,6 @@ export const ImageBorderPanel: React.FC<ImageBorderPanelProps> = ({ onClose }) =
                   </div>
                 </div>
 
-                {/* Width Section */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
